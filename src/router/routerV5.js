@@ -1,19 +1,23 @@
 import React from 'react';
 import routeNames from './routeNames';
 import { Route } from 'react-router-domV5';
+import { Switch } from 'react-router-domV5/cjs/react-router-dom.min';
 
 const RouterV5 = () => {
   return (
-    routeNames.map(route => {
-      return (
-        <Route
-          key={route.name}
-          exact
-          path={route.path}
-          component={route.component}
-        />
-      );
-    })
+    <Switch>
+      {routeNames.map(route => {
+        return (
+          <Route
+            key={route.name}
+            exact
+            path={route.path}
+            component={route.component}
+          />
+        );
+      })}
+    </Switch>
+
   );
 };
 

@@ -16,8 +16,8 @@ export default App;
 const st = {
   appContainer: {
     display: 'flex',
+    flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
     width: '100vw',
     height: '100vh',
   }
