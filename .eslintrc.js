@@ -2,40 +2,41 @@ module.exports = {
   'env': {
     'browser': true,
     'node': true,
-    'es2021': true
+    'es2021': true,
   },
   'extends': [
-    'eslint:recommended',
-    'plugin:react/recommended'
+    'eslint:recommended', 'google',
+    'plugin:react/recommended',
   ],
   'parserOptions': {
     'ecmaFeatures': {
-      'jsx': true
+      'jsx': true,
     },
     'ecmaVersion': 'latest',
-    'sourceType': 'module'
+    'sourceType': 'module',
   },
   'plugins': [
-    'react'
+    'react',
   ],
   'rules': {
     'indent': [
       'error',
-      2
+      2,
     ],
     'linebreak-style': [
       'error',
-      'unix'
+      'unix',
     ],
     'quotes': [
       'error',
-      'single'
+      'single',
     ],
     'semi': [
       'error',
-      'always'
+      'always',
     ],
     'no-unused-vars': 'warn',
-    'object-curly-spacing': ['error', 'always']
-  }
+    'object-curly-spacing': ['error', 'always'],
+    'require-jsdoc': 'off',
+  },
 };

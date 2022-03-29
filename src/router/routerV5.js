@@ -6,7 +6,7 @@ import { Switch } from 'react-router-domV5/cjs/react-router-dom.min';
 const RouterV5 = () => {
   return (
     <Switch>
-      {routeNames.map(route => {
+      {routeNames.map((route) => {
         return (
           <Route
             key={route.name}

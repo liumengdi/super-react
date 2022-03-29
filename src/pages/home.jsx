@@ -1,14 +1,23 @@
 import React from 'react';
-import { Button,Space } from 'antd-mobile';
+import { Button, Space } from 'antd-mobile';
 
 
 const HomePge = () => {
+  const onPressBt1 = () => {
+
+  };
+
+  const onPressBt2 = () => {
+
+  };
+
+
   return (
     <div style={st.container}>
       <div style={st.btnWrap}>
         <Space>
-          <Button color='primary'>Hello</Button>
-          <Button color='primary'>Hello</Button>
+          <Button onClick={onPressBt1} color='primary'>bt1</Button>
+          <Button onClick={onPressBt2} color='primary'>bt2</Button>
         </Space>
 
       </div>
@@ -29,6 +38,6 @@ const st = {
     display: 'flex',
     flexDirection: 'row',
     flexWrapper: 'wrap',
-    
-  }
+
+  },
 };
