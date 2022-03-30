@@ -2,30 +2,23 @@ import React from 'react';
 import { Button, Space } from 'antd-mobile';
 import deepClone from '../js/deepClone';
 
-const HomePge = (props) => {
-  const toJsPlayground = () => {
-    props.history.push('/jsPlayground');
-  };
-
-  const onPressBt2 = () => {
+const JSPlayground = () => {
+  const handleDeepClone =() => {
 
   };
-
 
   return (
     <div style={st.container}>
       <div style={st.btnWrap}>
         <Space>
-          <Button onClick={toJsPlayground} color='primary'>JsPlayground</Button>
-          <Button onClick={onPressBt2} color='primary'>bt2</Button>
+          <Button onClick={handleDeepClone} color='primary'>深拷贝</Button>
         </Space>
-
       </div>
     </div>
   );
 };
 
-export default HomePge;
+export default JSPlayground;
 
 
 const st = {

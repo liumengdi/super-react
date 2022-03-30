@@ -21,9 +21,9 @@ const modules = require('./modules');
 const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin =
-  process.env.TSC_COMPILE_ON_ERROR === 'true'
-    ? require('react-dev-utils/ForkTsCheckerWarningWebpackPlugin')
-    : require('react-dev-utils/ForkTsCheckerWebpackPlugin');
+  process.env.TSC_COMPILE_ON_ERROR === 'true' ?
+    require('react-dev-utils/ForkTsCheckerWarningWebpackPlugin') :
+    require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
@@ -33,12 +33,12 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 
 const reactRefreshRuntimeEntry = require.resolve('react-refresh/runtime');
 const reactRefreshWebpackPluginRuntimeEntry = require.resolve(
-  '@pmmmwh/react-refresh-webpack-plugin'
+  '@pmmmwh/react-refresh-webpack-plugin',
 );
 const babelRuntimeEntry = require.resolve('babel-preset-react-app');
 const babelRuntimeEntryHelpers = require.resolve(
   '@babel/runtime/helpers/esm/assertThisInitialized',
-  { paths: [babelRuntimeEntry] }
+  { paths: [babelRuntimeEntry] },
 );
 const babelRuntimeRegenerator = require.resolve('@babel/runtime/regenerator', {
   paths: [babelRuntimeEntry],
@@ -52,7 +52,7 @@ const emitErrorsAsWarnings = process.env.ESLINT_NO_DEV_ERRORS === 'true';
 const disableESLintPlugin = process.env.DISABLE_ESLINT_PLUGIN === 'true';
 
 const imageInlineSizeLimit = parseInt(
-  process.env.IMAGE_INLINE_SIZE_LIMIT || '10000'
+  process.env.IMAGE_INLINE_SIZE_LIMIT || '10000',
 );
 
 // Check if TypeScript is setup
@@ -60,7 +60,7 @@ const useTypeScript = fs.existsSync(paths.appTsConfig);
 
 // Check if Tailwind config exists
 const useTailwind = fs.existsSync(
-  path.join(paths.appPath, 'tailwind.config.js')
+  path.join(paths.appPath, 'tailwind.config.js'),
 );
 
 // Get the path to the uncompiled service worker (if it exists).
@@ -87,7 +87,7 @@ const hasJsxRuntime = (() => {
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
-module.exports = function (webpackEnv) {
+module.exports = function(webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
 
@@ -112,9 +112,9 @@ module.exports = function (webpackEnv) {
         loader: MiniCssExtractPlugin.loader,
         // css is located in `static/css`, use '../../' to locate index.html folder
         // in production `paths.publicUrlOrPath` can be a relative path
-        options: paths.publicUrlOrPath.startsWith('.')
-          ? { publicPath: '../../' }
-          : {},
+        options: paths.publicUrlOrPath.startsWith('.') ?
+          { publicPath: '../../' } :
+          {},
       },
       {
         loader: require.resolve('css-loader'),
@@ -131,36 +131,36 @@ module.exports = function (webpackEnv) {
             // https://github.com/facebook/create-react-app/issues/2677
             ident: 'postcss',
             config: false,
-            plugins: !useTailwind
-              ? [
-                  'postcss-flexbugs-fixes',
-                  [
-                    'postcss-preset-env',
-                    {
-                      autoprefixer: {
-                        flexbox: 'no-2009',
-                      },
-                      stage: 3,
+            plugins: !useTailwind ?
+              [
+                'postcss-flexbugs-fixes',
+                [
+                  'postcss-preset-env',
+                  {
+                    autoprefixer: {
+                      flexbox: 'no-2009',
                     },
-                  ],
-                  // Adds PostCSS Normalize as the reset css with default options,
-                  // so that it honors browserslist config in package.json
-                  // which in turn let's users customize the target behavior as per their needs.
-                  'postcss-normalize',
-                ]
-              : [
-                  'tailwindcss',
-                  'postcss-flexbugs-fixes',
-                  [
-                    'postcss-preset-env',
-                    {
-                      autoprefixer: {
-                        flexbox: 'no-2009',
-                      },
-                      stage: 3,
-                    },
-                  ],
+                    stage: 3,
+                  },
                 ],
+                // Adds PostCSS Normalize as the reset css with default options,
+                // so that it honors browserslist config in package.json
+                // which in turn let's users customize the target behavior as per their needs.
+                'postcss-normalize',
+              ] :
+              [
+                'tailwindcss',
+                'postcss-flexbugs-fixes',
+                [
+                  'postcss-preset-env',
+                  {
+                    autoprefixer: {
+                      flexbox: 'no-2009',
+                    },
+                    stage: 3,
+                  },
+                ],
+              ],
           },
           sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
         },
@@ -180,7 +180,7 @@ module.exports = function (webpackEnv) {
           options: {
             sourceMap: true,
           },
-        }
+        },
       );
     }
     return loaders;
@@ -191,11 +191,11 @@ module.exports = function (webpackEnv) {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
     bail: isEnvProduction,
-    devtool: isEnvProduction
-      ? shouldUseSourceMap
-        ? 'source-map'
-        : false
-      : isEnvDevelopment && 'cheap-module-source-map',
+    devtool: isEnvProduction ?
+      shouldUseSourceMap ?
+        'source-map' :
+        false :
+      isEnvDevelopment && 'cheap-module-source-map',
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
     entry: paths.appIndexJs,
@@ -206,26 +206,26 @@ module.exports = function (webpackEnv) {
       pathinfo: isEnvDevelopment,
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
-      filename: isEnvProduction
-        ? 'static/js/[name].[contenthash:8].js'
-        : isEnvDevelopment && 'static/js/bundle.js',
+      filename: isEnvProduction ?
+        'static/js/[name].[contenthash:8].js' :
+        isEnvDevelopment && 'static/js/bundle.js',
       // There are also additional JS chunk files if you use code splitting.
-      chunkFilename: isEnvProduction
-        ? 'static/js/[name].[contenthash:8].chunk.js'
-        : isEnvDevelopment && 'static/js/[name].chunk.js',
+      chunkFilename: isEnvProduction ?
+        'static/js/[name].[contenthash:8].chunk.js' :
+        isEnvDevelopment && 'static/js/[name].chunk.js',
       assetModuleFilename: 'static/media/[name].[hash][ext]',
       // webpack uses `publicPath` to determine where the app is being served from.
       // It requires a trailing slash, or the file assets will get an incorrect path.
       // We inferred the "public path" (such as / or /my-project) from homepage.
       publicPath: paths.publicUrlOrPath,
       // Point sourcemap entries to original disk location (format as URL on Windows)
-      devtoolModuleFilenameTemplate: isEnvProduction
-        ? info =>
-            path
-              .relative(paths.appSrc, info.absoluteResourcePath)
-              .replace(/\\/g, '/')
-        : isEnvDevelopment &&
-          (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
+      devtoolModuleFilenameTemplate: isEnvProduction ?
+        (info) =>
+          path
+            .relative(paths.appSrc, info.absoluteResourcePath)
+            .replace(/\\/g, '/') :
+        isEnvDevelopment &&
+          ((info) => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
     },
     cache: {
       type: 'filesystem',
@@ -235,8 +235,8 @@ module.exports = function (webpackEnv) {
       buildDependencies: {
         defaultWebpack: ['webpack/lib/'],
         config: [__filename],
-        tsconfig: [paths.appTsConfig, paths.appJsConfig].filter(f =>
-          fs.existsSync(f)
+        tsconfig: [paths.appTsConfig, paths.appJsConfig].filter((f) =>
+          fs.existsSync(f),
         ),
       },
     },
@@ -296,7 +296,7 @@ module.exports = function (webpackEnv) {
       // if there are any conflicts. This matches Node resolution mechanism.
       // https://github.com/facebook/create-react-app/issues/253
       modules: ['node_modules', paths.appNodeModules].concat(
-        modules.additionalModulePaths || []
+        modules.additionalModulePaths || [],
       ),
       // These are the reasonable defaults supported by the Node ecosystem.
       // We also include JSX as a common component filename extension to support
@@ -305,8 +305,8 @@ module.exports = function (webpackEnv) {
       // `web` extension prefixes have been added for better support
       // for React Native Web.
       extensions: paths.moduleFileExtensions
-        .map(ext => `.${ext}`)
-        .filter(ext => useTypeScript || !ext.includes('ts')),
+        .map((ext) => `.${ext}`)
+        .filter((ext) => useTypeScript || !ext.includes('ts')),
       alias: {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -407,7 +407,7 @@ module.exports = function (webpackEnv) {
               loader: require.resolve('babel-loader'),
               options: {
                 customize: require.resolve(
-                  'babel-preset-react-app/webpack-overrides'
+                  'babel-preset-react-app/webpack-overrides',
                 ),
                 presets: [
                   [
@@ -417,7 +417,7 @@ module.exports = function (webpackEnv) {
                     },
                   ],
                 ],
-                
+
                 plugins: [
                   isEnvDevelopment &&
                     shouldUseReactRefresh &&
@@ -451,7 +451,7 @@ module.exports = function (webpackEnv) {
                 cacheDirectory: true,
                 // See #6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
-                
+
                 // Babel sourcemaps are needed for debugging into node_modules
                 // code.  Without the options below, debuggers like VSCode
                 // show incorrect code and set breakpoints on the wrong lines.
@@ -471,9 +471,9 @@ module.exports = function (webpackEnv) {
               exclude: cssModuleRegex,
               use: getStyleLoaders({
                 importLoaders: 1,
-                sourceMap: isEnvProduction
-                  ? shouldUseSourceMap
-                  : isEnvDevelopment,
+                sourceMap: isEnvProduction ?
+                  shouldUseSourceMap :
+                  isEnvDevelopment,
                 modules: {
                   mode: 'icss',
                 },
@@ -490,9 +490,9 @@ module.exports = function (webpackEnv) {
               test: cssModuleRegex,
               use: getStyleLoaders({
                 importLoaders: 1,
-                sourceMap: isEnvProduction
-                  ? shouldUseSourceMap
-                  : isEnvDevelopment,
+                sourceMap: isEnvProduction ?
+                  shouldUseSourceMap :
+                  isEnvDevelopment,
                 modules: {
                   mode: 'local',
                   getLocalIdent: getCSSModuleLocalIdent,
@@ -508,14 +508,14 @@ module.exports = function (webpackEnv) {
               use: getStyleLoaders(
                 {
                   importLoaders: 3,
-                  sourceMap: isEnvProduction
-                    ? shouldUseSourceMap
-                    : isEnvDevelopment,
+                  sourceMap: isEnvProduction ?
+                    shouldUseSourceMap :
+                    isEnvDevelopment,
                   modules: {
                     mode: 'icss',
                   },
                 },
-                'sass-loader'
+                'sass-loader',
               ),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
@@ -530,15 +530,15 @@ module.exports = function (webpackEnv) {
               use: getStyleLoaders(
                 {
                   importLoaders: 3,
-                  sourceMap: isEnvProduction
-                    ? shouldUseSourceMap
-                    : isEnvDevelopment,
+                  sourceMap: isEnvProduction ?
+                    shouldUseSourceMap :
+                    isEnvDevelopment,
                   modules: {
                     mode: 'local',
                     getLocalIdent: getCSSModuleLocalIdent,
                   },
                 },
-                'sass-loader'
+                'sass-loader',
               ),
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
@@ -569,23 +569,23 @@ module.exports = function (webpackEnv) {
             inject: true,
             template: paths.appHtml,
           },
-          isEnvProduction
-            ? {
-                minify: {
-                  removeComments: true,
-                  collapseWhitespace: true,
-                  removeRedundantAttributes: true,
-                  useShortDoctype: true,
-                  removeEmptyAttributes: true,
-                  removeStyleLinkTypeAttributes: true,
-                  keepClosingSlash: true,
-                  minifyJS: true,
-                  minifyCSS: true,
-                  minifyURLs: true,
-                },
-              }
-            : undefined
-        )
+          isEnvProduction ?
+            {
+              minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeRedundantAttributes: true,
+                useShortDoctype: true,
+                removeEmptyAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                keepClosingSlash: true,
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true,
+              },
+            } :
+            undefined,
+        ),
       ),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
@@ -641,7 +641,7 @@ module.exports = function (webpackEnv) {
             return manifest;
           }, seed);
           const entrypointFiles = entrypoints.main.filter(
-            fileName => !fileName.endsWith('.map')
+            (fileName) => !fileName.endsWith('.map'),
           );
 
           return {
@@ -682,9 +682,9 @@ module.exports = function (webpackEnv) {
             }),
             configOverwrite: {
               compilerOptions: {
-                sourceMap: isEnvProduction
-                  ? shouldUseSourceMap
-                  : isEnvDevelopment,
+                sourceMap: isEnvProduction ?
+                  shouldUseSourceMap :
+                  isEnvDevelopment,
                 skipLibCheck: true,
                 inlineSourceMap: false,
                 declarationMap: false,
@@ -731,7 +731,7 @@ module.exports = function (webpackEnv) {
           cache: true,
           cacheLocation: path.resolve(
             paths.appNodeModules,
-            '.cache/.eslintcache'
+            '.cache/.eslintcache',
           ),
           // ESLint class options
           cwd: paths.appPath,
