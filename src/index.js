@@ -2,16 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom';
 import { BrowserRouter as BrowserRouterV5 } from 'react-router-domV5';
-
-const s = { 'a': 1 };
+// import { Provider } from 'react-redux';
+import { Provider } from './lib/mdRedux';
+import store from './store';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouterV5>
-      <App />
-    </BrowserRouterV5>
+    <Provider store={store}>
+      <BrowserRouterV5>
+        <App />
+      </BrowserRouterV5>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

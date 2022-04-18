@@ -1,14 +1,13 @@
 import React from 'react';
 import { Button, Space } from 'antd-mobile';
-import deepClone from '../js/deepClone';
 
 const HomePge = (props) => {
   const toJsPlayground = () => {
     props.history.push('/jsPlayground');
   };
 
-  const onPressBt2 = () => {
-
+  const toTodoApp = () => {
+    props.history.push('/todoApp');
   };
 
 
@@ -17,7 +16,7 @@ const HomePge = (props) => {
       <div style={st.btnWrap}>
         <Space>
           <Button onClick={toJsPlayground} color='primary'>JsPlayground</Button>
-          <Button onClick={onPressBt2} color='primary'>bt2</Button>
+          <Button onClick={toTodoApp} color='primary'>redux-todoApp</Button>
         </Space>
 
       </div>
@@ -39,6 +38,5 @@ const st = {
     display: 'flex',
     flexDirection: 'row',
     flexWrapper: 'wrap',
-
   },
 };

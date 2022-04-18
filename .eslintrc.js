@@ -37,7 +37,9 @@ module.exports = {
     ],
     'no-unused-vars': 'warn',
     'object-curly-spacing': ['error', 'always'],
-    'require-jsdoc': 'off',
+    'require-jsdoc': 0,
     'react/prop-types': 'off',
+    'max-len': ['error', { 'code': 100 }],
+    'valid-jsdoc': 0,
   },
 };

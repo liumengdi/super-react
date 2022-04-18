@@ -9,7 +9,7 @@ const RouterV5 = () => {
       {routeNames.map((route) => {
         return (
           <Route
-            key={route.name}
+            key={route.path}
             exact
             path={route.path}
             component={route.component}
