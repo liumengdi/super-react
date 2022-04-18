@@ -1,31 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import StoreContext from './context';
 
-const connect = (mapStateToProps, mapDispatchToProps) => {
+const createConnect = (mapStateToProps, mapDispatchToProps) => {
   return (WrappedComponent) => {
-    const Connect = () => {
-      let connectStore;
-
+    const Connect = (props) => {
       // const [propState, setPropState] = useState(null);
+      const [statet, setStatet] = useState(props.store.getState());
+
+
+      useEffect(() => {
+        props.store.subscribe((state) => {
+          setStatet(state);
+        });
+      }, []);
 
       return (
-        <StoreContext.Consumer>
-          {(store) => {
-            store.subscribe(() => {
-              console.log('store changed', store.getState());
-              // setPropState(store.getState());
-            });
+        <WrappedComponent
+          {...props}
+          {...mapStateToProps(statet)}
+          {...mapDispatchToProps(props.store.dispatch)}
+        />
+      );
+    };
 
-            // TODO: 怎么拿到初始值
-            // console.log('@@@connect-storeState:', store);
-            console.log('@@@connect-storeState-getState:', store.getState().todos);
-            return <WrappedComponent store={store} todos={store.getState().todos}/>;
-          }}
+    // 这里的props是被包裹组件的props
+    const ConnectComponent = (props) => {
+      console.log('ConnectComponent', props);
+      return (
+        <StoreContext.Consumer>
+          {(store) => <Connect store={store} {...props}/>}
         </StoreContext.Consumer>
       );
     };
-    return Connect;
+    return ConnectComponent;
   };
 };
 
-export default connect;
+export default createConnect;
