@@ -16,7 +16,6 @@ const connect = (mapStateToProps, mapDispatchToProps) => (Component) => {
 
     render() {
       const { store } = this.props;
-
       return (
         <Component
           {...this.props}
@@ -29,6 +28,7 @@ const connect = (mapStateToProps, mapDispatchToProps) => (Component) => {
 
 
   const Connectdd = (props) => {
+    console.log('connect--renderprops', props);
     return (
       <ReduxContext.Consumer>
         {(store) => <Connect {...props} store={store} />}

@@ -1,10 +1,16 @@
 import React from 'react';
 import { Button, Space } from 'antd-mobile';
 import deepClone from '../js/deepClone';
+import { promiseBasic1, promiseBasic2 } from '../js/arrayFunctions';
 
 const JSPlayground = () => {
   const handleDeepClone =() => {
 
+  };
+
+  const handleAsyncProgramming = () => {
+    // promiseBasic1();
+    promiseBasic2();
   };
 
   return (
@@ -12,6 +18,7 @@ const JSPlayground = () => {
       <div style={st.btnWrap}>
         <Space>
           <Button onClick={handleDeepClone} color='primary'>深拷贝</Button>
+          <Button onClick={handleAsyncProgramming} color='primary'>异步</Button>
         </Space>
       </div>
     </div>

@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import StoreContext from './context';
 
-const createConnect = (mapStateToProps, mapDispatchToProps) => {
-  return (WrappedComponent) => {
-    const Connect = (props) => {
+/**
+ *
+ * @param  mapStateToProps 就是connect接收的mapStateToProps参数
+ * @param mapDispatchToProps 就是connect接收的mapDispatchToProps参数
+ * @returns  返回一个函数, component组件, 返回一个组件, component组件的props做处理, 给它添加数据和dispatch方法
+ */
+const Connect = (mapStateToProps, mapDispatchToProps) => {
+  return (TodoApp) => {
+    const ConnectWrap = (props) => {
       // const [propState, setPropState] = useState(null);
       const [statet, setStatet] = useState(props.store.getState());
+      console.log('props=======', props);
 
+      console.log('in-connect-mapDispatch', mapDispatchToProps(props.store.dispatch));
 
       useEffect(() => {
         props.store.subscribe((state) => {
@@ -14,8 +22,10 @@ const createConnect = (mapStateToProps, mapDispatchToProps) => {
         });
       }, []);
 
+      // 被包裹的组件,可以用这种方式给它添加参数
+      // 为什么不在这里直接返回了TODOAPP呢, 因为这里没有store?
       return (
-        <WrappedComponent
+        <TodoApp
           {...props}
           {...mapStateToProps(statet)}
           {...mapDispatchToProps(props.store.dispatch)}
@@ -28,7 +38,7 @@ const createConnect = (mapStateToProps, mapDispatchToProps) => {
       console.log('ConnectComponent', props);
       return (
         <StoreContext.Consumer>
-          {(store) => <Connect store={store} {...props}/>}
+          {(store) => <ConnectWrap store={store} {...props} />}
         </StoreContext.Consumer>
       );
     };
@@ -36,4 +46,14 @@ const createConnect = (mapStateToProps, mapDispatchToProps) => {
   };
 };
 
-export default createConnect;
+export default Connect;
+
+
+/**
+<ConnectComponent>
+  <ConnectWrap store={store} {...props}>
+    <TodoApp {...props} />
+  </ConnectWrap>
+</ConnectComponent>
+
+ */

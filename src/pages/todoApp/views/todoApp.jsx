@@ -8,9 +8,9 @@ const DATE_FORMAT = 'YYYY-MM-DD HH:mm:ss sss';
 
 const TodoApp = (props) => {
   const [searchVal, setSearchVal] = useState('');
-
+  console.log('TODPA{{', props);
   const addTodo = () => {
-    props.store.dispatch({
+    props.addTodo({
       type: actionTypes.ADD_TODO,
       payload: {
         name: moment().format(DATE_FORMAT),
@@ -44,7 +44,7 @@ const TodoApp = (props) => {
           />
         </div>
         {/* {props.todoList?.filter((_) => _.name.includes(searchVal))?.map((item, i) => { */}
-        {props.todos?.map((item, i) => {
+        {props.todoList?.map((item, i) => {
           return <TodoItem key={item.name + i}
             name={item.name}
             checked={item.checked}
@@ -99,8 +99,6 @@ const TodoItem = (props) => {
       </Space>
 
     </div>
-
-
   );
 };
 

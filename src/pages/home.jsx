@@ -10,6 +10,9 @@ const HomePge = (props) => {
     props.history.push('/todoApp');
   };
 
+  const toAmis = () => {
+    props.history.push('/amis');
+  };
 
   return (
     <div style={st.container}>
@@ -17,6 +20,7 @@ const HomePge = (props) => {
         <Space>
           <Button onClick={toJsPlayground} color='primary'>JsPlayground</Button>
           <Button onClick={toTodoApp} color='primary'>redux-todoApp</Button>
+          <Button onClick={toAmis} color='primary'>amis</Button>
         </Space>
 
       </div>

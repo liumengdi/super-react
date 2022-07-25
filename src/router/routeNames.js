@@ -1,6 +1,7 @@
 import HomePage from '../pages/home.jsx';
 import JSPlayground from '../pages/jsPlayground.jsx';
 import TodoApp from '../pages/todoApp';
+import AmisApp from '../pages/amisApp';
 
 const routeNames = [{
   path: '/',
@@ -11,6 +12,9 @@ const routeNames = [{
 }, {
   path: '/todoApp',
   component: TodoApp,
+}, {
+  path: '/amis',
+  component: AmisApp,
 }];
 
 export default routeNames;
